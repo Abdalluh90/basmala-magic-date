@@ -33,15 +33,51 @@ button{font:inherit;cursor:pointer}.btn{border:1px solid #a78b49;background:line
 <section class="screen" id="s6"><div class="eyebrow">The best spell of all</div><div style="font-size:52px">💚🍀✨</div><h1>It's a date, Basmala!</h1><p>The Clover Kingdom celebrates! Your invitation is now official.</p><div class="ticket"><h2>A little magical thought</h2><div class="note-jp" lang="ja">その笑顔には、不思議な魔法が宿っている。どんな悪魔でさえ、その輝きの前では跡形もなく消えてしまう。</div><div class="stamp">Made with magic & ♥ by Abdalluh<br>Future Wizard King</div></div><button class="btn" id="copy">Copy our invitation 💌</button><button class="btn alt" id="share">Share the magic</button><div class="tiny">No magic kingdom tax required. Your smile is enough. ❤️</div></section>
 <div class="toast" id="toast"></div></main>
 <script>
-(()=>{const $=id=>document.getElementById(id);let leaves=0,audio=null,audioTimer=null,playing=false;
+(()=>{const $=id=>document.getElementById(id);let leaves=0,audio=null,audioTimer=null,playing=false,fxAudio=null;
 function go(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$('s'+n).classList.add('active');if(n===5)ticket()}
-document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.go)));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{if(+b.dataset.go===1)playMagic('book');else playMagic('click');go(+b.dataset.go)}));
+function playMagic(kind){
+ try{
+  const C=window.AudioContext||window.webkitAudioContext;
+  if(!C)return;
+  if(!fxAudio)fxAudio=new C();
+  const ctx=fxAudio; if(ctx.state==='suspended')ctx.resume();
+  const master=ctx.createGain(); master.gain.value=.24; master.connect(ctx.destination);
+  const now=ctx.currentTime;
+  const tone=(freq,dur,type='sine',vol=.16,slide=0)=>{
+   const o=ctx.createOscillator(),g=ctx.createGain();o.type=type;
+   o.frequency.setValueAtTime(freq,now);if(slide)o.frequency.exponentialRampToValueAtTime(Math.max(35,freq+slide),now+dur);
+   g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime(vol,now+.025);g.gain.exponentialRampToValueAtTime(.0001,now+dur);
+   o.connect(g);g.connect(master);o.start(now);o.stop(now+dur+.03);
+  };
+  const noise=(dur,vol,filterType,frequency)=>{
+   const n=Math.floor(ctx.sampleRate*dur),buf=ctx.createBuffer(1,n,ctx.sampleRate),d=buf.getChannelData(0);
+   for(let i=0;i<n;i++)d[i]=(Math.random()*2-1)*(1-i/n);
+   const src=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),g=ctx.createGain();
+   src.buffer=buf;filter.type=filterType;filter.frequency.value=frequency;g.gain.value=vol;
+   src.connect(filter);filter.connect(g);g.connect(master);src.start(now);
+  };
+  if(kind==='asta'){tone(95,.55,'sawtooth',.24,-55);tone(145,.35,'square',.12,-95);noise(.38,.2,'lowpass',420);}
+  else if(kind==='yuno'){noise(.65,.16,'highpass',850);tone(660,.32,'sine',.12,420);tone(990,.48,'triangle',.1,-260);}
+  else if(kind==='noelle'){tone(740,.42,'sine',.14,260);tone(980,.55,'sine',.1,-320);noise(.45,.09,'highpass',1700);}
+  else if(kind==='yami'){tone(62,.75,'sawtooth',.25,-28);tone(82,.6,'triangle',.13,-42);noise(.55,.16,'lowpass',230);}
+  else if(kind==='book'){tone(392,.18,'sine',.1);setTimeout(()=>tone(587,.25,'sine',.1),100);setTimeout(()=>tone(784,.38,'triangle',.09),220);}
+  else if(kind==='clover'){tone(784,.16,'sine',.12);setTimeout(()=>tone(1175,.28,'sine',.1),90);}
+  else if(kind==='yes'){[523,659,784,1046].forEach((n,i)=>setTimeout(()=>tone(n,.42,'triangle',.12),i*105));noise(.5,.08,'highpass',2200);}
+  else if(kind==='click'){tone(520,.09,'sine',.055);}
+ }catch(e){}
+}
 function toast(t){$('toast').textContent=t;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',2200)}
 function confetti(){for(let i=0;i<32;i++){let x=document.createElement('span');x.className='spark';x.textContent=['🍀','✨','💚','✦'][i%4];x.style.left=Math.random()*100+'%';x.style.animationDelay=Math.random()+'s';$('app').appendChild(x);setTimeout(()=>x.remove(),4500)}}
-$('collect').addEventListener('click',()=>{if(leaves>=5)return;$('leaves').children[leaves].classList.add('found');leaves++;$('leafhint').textContent=leaves+' / 5 collected';$('collect').textContent=leaves===5?'All five collected!':'Collect another Clover 🍀';if(leaves===5){$('secret').style.display='block';$('continue').style.display='inline-block';$('collect').disabled=true;confetti()}});
-document.querySelectorAll('[data-group]').forEach(g=>g.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{g.querySelectorAll('button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');if(g.dataset.group==='quiz'){$('bar').style.width='100%';$('compat').textContent='100% magical compatibility! 🍀'}})));
+$('collect').addEventListener('click',()=>{if(leaves>=5)return;playMagic('clover');$('leaves').children[leaves].classList.add('found');leaves++;$('leafhint').textContent=leaves+' / 5 collected';$('collect').textContent=leaves===5?'All five collected!':'Collect another Clover 🍀';if(leaves===5){$('secret').style.display='block';$('continue').style.display='inline-block';$('collect').disabled=true;confetti()}});
+document.querySelectorAll('[data-group]').forEach(g=>g.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+ g.querySelectorAll('button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');
+ if(g.dataset.group==='character'){const t=b.textContent;if(t.includes('Asta'))playMagic('asta');else if(t.includes('Yuno'))playMagic('yuno');else if(t.includes('Noelle'))playMagic('noelle');else if(t.includes('Yami'))playMagic('yami');}
+ else playMagic('click');
+ if(g.dataset.group==='quiz'){$('bar').style.width='100%';$('compat').textContent='100% magical compatibility! 🍀'}
+})));
 function ticket(){let d=new Date(($('date').value||'2026-11-15')+'T12:00:00');$('td').textContent=d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});$('tt').textContent=$('time').value;$('te').textContent=$('episode').value;$('ts').textContent=$('snack').value;$('tv').textContent=$('vibe').value}
-$('yes').addEventListener('click',()=>{confetti();go(6)});let nc=0;function flee(){let b=$('no');b.style.transform='translate('+(Math.random()-.5)*90+'px,'+(Math.random()-.5)*45+'px)';$('yes').style.transform='scale('+(1+Math.min(nc,5)*.08)+')'}$('no').addEventListener('pointerenter',()=>{nc++;flee();$('no').textContent=['Are you sure? 🥺','Try again! 🍀','The grimoire says YES 😂'][Math.min(nc-1,2)]});$('no').addEventListener('click',()=>{nc++;flee()});
+$('yes').addEventListener('click',()=>{playMagic('yes');confetti();go(6)});let nc=0;function flee(){let b=$('no');b.style.transform='translate('+(Math.random()-.5)*90+'px,'+(Math.random()-.5)*45+'px)';$('yes').style.transform='scale('+(1+Math.min(nc,5)*.08)+')'}$('no').addEventListener('pointerenter',()=>{nc++;flee();$('no').textContent=['Are you sure? 🥺','Try again! 🍀','The grimoire says YES 😂'][Math.min(nc-1,2)]});$('no').addEventListener('click',()=>{nc++;flee()});
 function invite(){ticket();return '🍀 A Magical Date for Basmala 🍀\nDate: '+$('td').textContent+'\nTime: '+$('tt').textContent+'\nEpisode: '+$('te').textContent+'\nSnacks: '+$('ts').textContent+'\nVibe: '+$('tv').textContent+'\n\nその笑顔には、不思議な魔法が宿っている。どんな悪魔でさえ、その輝きの前では跡形もなく消えてしまう。\n\nMade with magic & ❤️ by Abdalluh — Future Wizard King'}
 $('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(invite());toast('Invitation copied! 💌')}catch(e){toast('Clipboard unavailable in this browser')}});
 $('share').addEventListener('click',async()=>{let t=invite();if(navigator.share){try{await navigator.share({title:'A Magical Date for Basmala',text:t})}catch(e){}}else{try{await navigator.clipboard.writeText(t);toast('Copied — ready to share!')}catch(e){toast('Sharing unavailable here')}}});
