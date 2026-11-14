@@ -17,7 +17,7 @@ button{font:inherit;cursor:pointer}.btn{border:1px solid #a78b49;background:line
 .field{width:min(100%,350px);text-align:left;margin:7px auto;color:#c1d5c4;font-size:13px}.field select,.field input{display:block;width:100%;margin-top:5px;padding:11px;border-radius:10px;background:#102019;color:white;border:1px solid #4b7156}
 .leaves{display:flex;gap:13px;font-size:27px;margin:15px}.leaf{opacity:.2;filter:grayscale(1)}.leaf.found{opacity:1;filter:none;text-shadow:0 0 15px #b3ed8c}
 .secret{display:none;background:#10261b;border:1px solid #b79b50;border-radius:15px;padding:15px;margin:10px auto}.meter{height:11px;width:min(100%,330px);background:#23352a;border-radius:20px;overflow:hidden;margin:12px auto}.meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,#5bcf89,#f1d47d);transition:.4s}
-.ticket{background:#f7edcf;color:#244b34;border-radius:20px;padding:24px 18px;max-width:440px;width:100%;margin:14px auto;box-shadow:0 12px 35px #0008}.ticket h2{color:#245b3a}.ticket p{color:#354d3c;font-weight:600}.note-jp{font-size:clamp(17px,4.5vw,20px);line-height:2.05;color:#79551b;font-weight:750;margin:18px auto;overflow-wrap:anywhere}.arabic{color:#354d3c;font-size:14px;line-height:1.9;font-weight:650}.stamp{border:2px dashed #63845e;border-radius:12px;padding:12px;margin-top:15px;color:#245b3a;font-weight:800;line-height:1.8}
+.ticket{background:#f7edcf;color:#244b34;border-radius:20px;padding:24px 18px;max-width:440px;width:100%;margin:14px auto;box-shadow:0 12px 35px #0008}.ticket h2{color:#245b3a}.ticket p{color:#354d3c;font-weight:600}.note-jp{font-size:clamp(17px,4.5vw,20px);line-height:2.05;color:#79551b;font-weight:750;margin:18px auto;overflow-wrap:anywhere}.stamp{border:2px dashed #63845e;border-radius:12px;padding:12px;margin-top:15px;color:#245b3a;font-weight:800;line-height:1.8}
 .toast{display:none;position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:#e6d18d;color:#15231a;padding:9px 15px;border-radius:20px;z-index:5;white-space:nowrap}.spark{position:absolute;top:-20px;z-index:2;pointer-events:none;animation:fall 4s linear forwards}
 @keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@keyframes fall{to{transform:translateY(800px) rotate(400deg);opacity:0}}
 @media(max-width:420px){.screen{min-height:620px;padding:58px 14px 28px}.app{min-height:620px}}
@@ -30,10 +30,10 @@ button{font:inherit;cursor:pointer}.btn{border:1px solid #a78b49;background:line
 <section class="screen" id="s3"><div class="eyebrow">A date worthy of a Wizard King</div><h1>Let's plan our episode night</h1><p>Choose the details for our magical evening.</p><label class="field">Date<input id="date" type="date" value="2026-11-15" min="2026-11-15"></label><label class="field">Time<select id="time"><option>6:00 PM</option><option>7:00 PM</option><option>8:00 PM</option><option>9:00 PM</option></select></label><label class="field">Black Clover episode<select id="episode"><option>Our first episode together</option><option>Episode 1</option><option>Episode 2</option><option>Episode 3</option><option>Surprise me!</option></select></label><label class="field">Snacks<select id="snack"><option>🍿 Popcorn</option><option>🍕 Pizza</option><option>🍣 Sushi</option><option>🍜 Ramen</option><option>🍫 Chocolate</option><option>🥤 Drinks & snacks</option></select></label><label class="field">The vibe<select id="vibe"><option>Cozy & cute</option><option>Chaos like Asta 😂</option><option>Romantic & magical</option><option>Full anime marathon</option></select></label><button class="btn" data-go="4">Seal the plan ✨</button></section>
 <section class="screen" id="s4"><div class="eyebrow">One final trial</div><h1>Magic compatibility test</h1><p>What would make this date truly special?</p><div class="choices" data-group="quiz"><button class="choice">✨ The magic</button><button class="choice">😂 The laughs</button><button class="choice">🍿 The snacks</button><button class="choice">❤️ The company</button></div><h2>Magic compatibility</h2><div class="meter"><span id="bar"></span></div><div id="compat" class="tiny">Waiting for your answer…</div><button class="btn" data-go="5">Reveal our invitation 💌</button></section>
 <section class="screen" id="s5"><div class="eyebrow">Royal invitation • Clover Kingdom</div><h1>You're invited, Basmala!</h1><div class="ticket"><div style="font-size:38px">🍀</div><h2>A Magical Date</h2><small>BLACK CLOVER EDITION</small><p>Guest: <b>Basmala</b></p><p>Date: <b id="td">15 November 2026</b></p><p>Time: <b id="tt">6:00 PM</b></p><p>Episode: <b id="te">Our first episode together</b></p><p>Snacks: <b id="ts">🍿 Popcorn</b></p><p>Vibe: <b id="tv">Cozy & cute</b></p><div class="stamp">OFFICIALLY APPROVED BY THE MAGIC KNIGHTS</div></div><p>One episode, a few snacks, and a little time together. What do you say?</p><div class="choices"><button class="btn" id="yes">YES! ❤️</button><button class="btn alt" id="no">No 🙃</button></div><div class="tiny">P.S. The No button is a little shy.</div></section>
-<section class="screen" id="s6"><div class="eyebrow">The best spell of all</div><div style="font-size:52px">💚🍀✨</div><h1>It's a date, Basmala!</h1><p>The Clover Kingdom celebrates! Your invitation is now official.</p><div class="ticket"><h2>A little magical thought</h2><div class="note-jp" lang="ja">その笑顔には、不思議な魔法が宿っている。どんな悪魔でさえ、その輝きの前では跡形もなく消えてしまう。</div><p class="arabic" dir="rtl" lang="ar">هناك سحر غريب يسكن ابتسامتك، حتى الشيطان مهما بلغت قوته يتلاشى بلا أثر أمام نورها.</p><div class="stamp">Made with magic & ♥ by Abdalluh<br>Future Wizard King</div></div><button class="btn" id="copy">Copy our invitation 💌</button><button class="btn alt" id="share">Share the magic</button><div class="tiny">No magic kingdom tax required. Your smile is enough. ❤️</div></section>
+<section class="screen" id="s6"><div class="eyebrow">The best spell of all</div><div style="font-size:52px">💚🍀✨</div><h1>It's a date, Basmala!</h1><p>The Clover Kingdom celebrates! Your invitation is now official.</p><div class="ticket"><h2>A little magical thought</h2><div class="note-jp" lang="ja">その笑顔には、不思議な魔法が宿っている。どんな悪魔でさえ、その輝きの前では跡形もなく消えてしまう。</div><div class="stamp">Made with magic & ♥ by Abdalluh<br>Future Wizard King</div></div><button class="btn" id="copy">Copy our invitation 💌</button><button class="btn alt" id="share">Share the magic</button><div class="tiny">No magic kingdom tax required. Your smile is enough. ❤️</div></section>
 <div class="toast" id="toast"></div></main>
 <script>
-(()=>{const $=id=>document.getElementById(id);let leaves=0,audio=null,playing=false;
+(()=>{const $=id=>document.getElementById(id);let leaves=0,audio=null,audioTimer=null,playing=false;
 function go(n){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$('s'+n).classList.add('active');if(n===5)ticket()}
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>go(+b.dataset.go)));
 function toast(t){$('toast').textContent=t;$('toast').style.display='block';setTimeout(()=>$('toast').style.display='none',2200)}
@@ -45,6 +45,40 @@ $('yes').addEventListener('click',()=>{confetti();go(6)});let nc=0;function flee
 function invite(){ticket();return '🍀 A Magical Date for Basmala 🍀\nDate: '+$('td').textContent+'\nTime: '+$('tt').textContent+'\nEpisode: '+$('te').textContent+'\nSnacks: '+$('ts').textContent+'\nVibe: '+$('tv').textContent+'\n\nその笑顔には、不思議な魔法が宿っている。どんな悪魔でさえ、その輝きの前では跡形もなく消えてしまう。\n\nMade with magic & ❤️ by Abdalluh — Future Wizard King'}
 $('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(invite());toast('Invitation copied! 💌')}catch(e){toast('Clipboard unavailable in this browser')}});
 $('share').addEventListener('click',async()=>{let t=invite();if(navigator.share){try{await navigator.share({title:'A Magical Date for Basmala',text:t})}catch(e){}}else{try{await navigator.clipboard.writeText(t);toast('Copied — ready to share!')}catch(e){toast('Sharing unavailable here')}}});
-$('sound').addEventListener('click',async()=>{try{if(!audio){let C=window.AudioContext||window.webkitAudioContext;audio=new C();let master=audio.createGain();master.gain.value=.035;master.connect(audio.destination);[196,246.94,293.66,369.99].forEach((f,i)=>{let o=audio.createOscillator(),g=audio.createGain();o.type='sine';o.frequency.value=f;g.gain.value=.16/(i+1);o.connect(g);g.connect(master);o.start()})}if(playing){await audio.suspend();playing=false;$('sound').textContent='♫ Music: Off'}else{await audio.resume();playing=true;$('sound').textContent='♫ Music: On'}}catch(e){toast('Audio unavailable')}});
+$('sound').addEventListener('click',async()=>{
+ try{
+  if(!audio){
+   const C=window.AudioContext||window.webkitAudioContext;
+   audio=new C();
+   const master=audio.createGain();
+   master.gain.value=.22;
+   master.connect(audio.destination);
+   const delay=audio.createDelay(1.2), feedback=audio.createGain(), wet=audio.createGain();
+   delay.delayTime.value=.32; feedback.gain.value=.22; wet.gain.value=.18;
+   master.connect(delay); delay.connect(feedback); feedback.connect(delay); delay.connect(wet); wet.connect(audio.destination);
+   const melody=[659.25,783.99,987.77,783.99,698.46,880,1046.5,880,587.33,698.46,880,1046.5,987.77,880,783.99,659.25];
+   const bass=[164.81,146.83,130.81,146.83];
+   let step=0;
+   const playNote=(freq,when,duration,volume,type)=>{
+    const osc=audio.createOscillator(),gain=audio.createGain();
+    osc.type=type; osc.frequency.setValueAtTime(freq,when);
+    gain.gain.setValueAtTime(.0001,when);
+    gain.gain.exponentialRampToValueAtTime(volume,when+.035);
+    gain.gain.exponentialRampToValueAtTime(.0001,when+duration);
+    osc.connect(gain); gain.connect(master); osc.start(when); osc.stop(when+duration+.04);
+   };
+   const tick=()=>{
+    const now=audio.currentTime+.04;
+    playNote(melody[step%melody.length],now,.34,.11,'triangle');
+    if(step%4===0)playNote(bass[(step/4)%bass.length],now,.95,.075,'sine');
+    if(step%2===0)playNote(melody[(step+4)%melody.length]/2,now,.62,.035,'sine');
+    step++;
+   };
+   tick(); audioTimer=setInterval(tick,390);
+  }
+  if(playing){clearInterval(audioTimer);await audio.suspend();playing=false;$('sound').textContent='♫ Music: Off'}
+  else{await audio.resume();playing=true;$('sound').textContent='♫ Music: On'}
+ }catch(e){toast('Audio unavailable')}
+});
 })();
 </script></body></html>
