@@ -84,7 +84,7 @@ function invite(){ticket();return '🍀 A Magical Date for Basmala 🍀\nDate: '
 $('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(invite());toast('Invitation copied! 💌')}catch(e){toast('Clipboard unavailable in this browser')}});
 $('share').addEventListener('click',async()=>{let t=invite();if(navigator.share){try{await navigator.share({title:'A Magical Date for Basmala',text:t})}catch(e){}}else{try{await navigator.clipboard.writeText(t);toast('Copied — ready to share!')}catch(e){toast('Sharing unavailable here')}}});
 $('whatsapp').addEventListener('click',()=>{const t=invite();const url='https://wa.me/201552965603?text='+encodeURIComponent(t);window.open(url,'_blank','noopener,noreferrer')});
-$('instagram').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(invite());toast('Invitation copied! Paste it in Instagram DM 📸')}catch(e){toast('Copy unavailable — use Copy our invitation first')}window.open('https://www.instagram.com/direct/inbox/','_blank','noopener,noreferrer')});
+$('instagram').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(invite());toast('Invitation copied! Paste it in Instagram DM 📸')}catch(e){toast('Copy unavailable — use Copy our invitation first')}window.open('https://ig.me/m/abdalluh.negm','_blank','noopener,noreferrer')});
 $('sound').addEventListener('click',async()=>{
  try{
   if(!audio){
